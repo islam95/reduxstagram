@@ -1,19 +1,19 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import "./styles/style.css";
-import Main from "./components/Main";
-import PhotoGrid from "./components/PhotoGrid";
-import Single from "./components/Single";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { render } from "react-dom";
+import { Route } from "react-router-dom";
 
-const router = (
-  <BrowserRouter>
-    <Switch>
-      <Route path="/" component={Main}>
-        <Route component={PhotoGrid} />
-        <Route path="/view/:postId" component={Single} />
-      </Route>
-    </Switch>
-  </BrowserRouter>
-)
-ReactDOM.render(router, document.getElementById("root"));
+import { Provider } from "react-redux";
+import store, { history } from "./store";
+import { ConnectedRouter } from "react-router-redux";
+
+import App from "./components/App";
+import "./styles/style.css";
+
+render(
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <Route path="/" component={App} />
+    </ConnectedRouter>
+  </Provider>,
+  document.getElementById("root")
+);
